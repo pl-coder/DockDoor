@@ -18,3 +18,16 @@ Upstream is `upstream`; our patches live on branch `plcoder`. Rebuild with `./bu
   - Lyrics (`lyrics.ovh`, `lrclib.net`): only when you ask for lyrics. Left as-is.
   - Everything else is links you click (donate, GitHub, Discord) — no telemetry.
 - Signed with our Apple Development team, bundle id `com.plcoder.DockDoor`.
+- Build traps hit (all now baked into `build-local.sh`):
+  - Upstream's "Run Script" phase builds SwiftFormat and rewrites every source file
+    on each build. Patched to exit early when `PLCODER_SKIP_FORMAT=1`.
+  - `-allowProvisioningUpdates` / automatic signing hung on Apple's servers. Manual
+    signing with the Apple Development cert needs no profile for these entitlements.
+  - SPM hung at "Resolve Package Graph" on a keychain lookup while fetching Sparkle's
+    binary zip. Fixed with `-packageAuthorizationProvider netrc` (no ~/.netrc exists),
+    plus `-skipPackageUpdates -disableAutomaticPackageResolution` so branch-pinned
+    deps don't re-hit GitHub every build.
+  - App reports version 1.18.3: upstream's stale MARKETING_VERSION; CI sets the real
+    one. Code is 1.41.0.
+- Installed to /Applications, running. Hover test pending Peter granting
+  Accessibility + Screen Recording (can't be granted or read from the shell).

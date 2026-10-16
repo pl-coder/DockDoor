@@ -7,9 +7,11 @@ cd "${0:A:h}"
 
 xcodebuild -project DockDoor.xcodeproj -scheme DockDoor -configuration Release \
   -derivedDataPath build \
-  DEVELOPMENT_TEAM=6W9Z36WZNX CODE_SIGN_STYLE=Automatic \
-  PRODUCT_BUNDLE_IDENTIFIER=com.plcoder.DockDoor \
-  -allowProvisioningUpdates build > build.log 2>&1 \
+  -skipPackageUpdates -disableAutomaticPackageResolution -skipMacroValidation -skipPackagePluginValidation -packageAuthorizationProvider netrc \
+  DEVELOPMENT_TEAM=6W9Z36WZNX CODE_SIGN_STYLE=Manual \
+  CODE_SIGN_IDENTITY="Apple Development" PROVISIONING_PROFILE_SPECIFIER= \
+  PRODUCT_BUNDLE_IDENTIFIER=com.plcoder.DockDoor PLCODER_SKIP_FORMAT=1 \
+  build > build.log 2>&1 \
   || { grep -E 'error:' build.log | head -20; exit 1; }
 
 APP=build/Build/Products/Release/DockDoor.app
