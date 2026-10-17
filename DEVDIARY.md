@@ -31,3 +31,13 @@ Upstream is `upstream`; our patches live on branch `plcoder`. Rebuild with `./bu
     one. Code is 1.41.0.
 - Installed to /Applications, running. Hover test pending Peter granting
   Accessibility + Screen Recording (can't be granted or read from the shell).
+
+## 2026-10-17 — verified on screen
+
+- Mac rebooted 13:04; DockDoor did not come back — it is **not a login item** yet
+  (the in-app "Launch DockDoor at login" toggle is off). Relaunched by hand.
+- Hover test passed: Finder icon → panel with live thumbnails of both open windows
+  (Downloads, personal); Terminal icon → its one window, correctly badged "Hidden".
+- Testing gotcha: the computer-use screenshot tool filters out DockDoor's panel (not
+  on its allowlist). Verified instead by polling CGWindowList for DockDoor's layer-25
+  window and `screencapture -l <id>` on it.
