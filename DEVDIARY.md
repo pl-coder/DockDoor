@@ -41,3 +41,6 @@ Upstream is `upstream`; our patches live on branch `plcoder`. Rebuild with `./bu
 - Testing gotcha: the computer-use screenshot tool filters out DockDoor's panel (not
   on its allowlist). Verified instead by polling CGWindowList for DockDoor's layer-25
   window and `screencapture -l <id>` on it.
+- Launch at login: added as a macOS login item (System Events → /Applications/DockDoor.app).
+  The in-app "Launch DockDoor at login" toggle (SMAppService) still reads off — leave it
+  off, or remove the login item if you switch to the toggle, to avoid a double launch.
